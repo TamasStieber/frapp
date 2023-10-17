@@ -9,3 +9,83 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Project {
+  id             Int           @id @default(autoincrement())
+  title          String        @unique @db.VarChar(255)
+  description    String        @db.Text
+  status         ProjectStatus @default(NOT_STARTED)
+  stage          Stage         @default(PLANNING)
+  tags           Tag[]
+  comment        String        @db.Text
+  url            String?
+  issues         Issue[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  deadline       DateTime?
+  projectStageId Int
+}
+
+model Issue {
+  id          Int         @id @default(autoincrement())
+  project     Project     @relation(fields: [projectId], references: [id])
+  title       String      @db.VarChar(255)
+  description String      @db.Text
+  status      IssueStatus @default(OPEN)
+  type        Type?       @relation(fields: [typeId], references: [id])
+  priority    Priority    @default(MEDIUM)
+  comment     String      @db.Text
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deadline    DateTime?
+  projectId   Int
+  typeId      Int?
+}
+
+model Type {
+  id    Int     @id @default(autoincrement())
+  label String  @db.VarChar(255)
+  color String
+  Issue Issue[]
+}
+
+model Tag {
+  id        Int      @id @default(autoincrement())
+  label     String   @db.VarChar(255)
+  color     String
+  Project   Project? @relation(fields: [projectId], references: [id])
+  projectId Int?
+}
+
+enum Stage {
+  PLANNING
+  DESIGNING
+  IN_DEVELOPMENT
+  OPTIMIZATION
+  REFACTORING
+  DEBUGGING
+  TESTING
+  IN_PRODUCTION
+}
+
+enum ProjectStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  DONE
+  DELETED
+}
+
+enum IssueStatus {
+  OPEN
+  IN_PROGRESS
+  BLOCKED
+  WONT_DO
+  DONE
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  EXCLUSIVE
+}
