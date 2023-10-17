@@ -24,6 +24,7 @@ const NavLinks = () => {
   const menuItems = [
     { href: "/", label: "Dashboard" },
     { href: "/projects", label: "Projects" },
+    { href: "/issues", label: "Issues" },
   ];
 
   const currentPath = usePathname();
