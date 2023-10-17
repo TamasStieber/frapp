@@ -5,9 +5,9 @@ import { SiBugsnag } from "react-icons/si";
 
 const Logo = () => {
   return (
-    <Link className="text-white" href="/">
+    <Link className="py-2 px-2 text-white font-bold" href="/">
       <Flex align="center" gap="1">
-        <SiBugsnag />
+        <SiBugsnag style={{ strokeWidth: "1" }} />
         FrApp
       </Flex>
     </Link>

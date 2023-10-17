@@ -4,34 +4,53 @@ import { Flex } from "@radix-ui/themes";
 import classNames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SiBugsnag } from "react-icons/si";
 import Logo from "./Logo";
 
-const menuItems = [
-  { href: "/", label: "Dashboard" },
-  { href: "/projects", label: "Projects" },
-];
-
 const NavBar = () => {
-  const currentPath = usePathname();
   return (
-    <nav className="border-b px-2 bg-lime-500">
-      <Flex gap="3">
-        <Logo />
-        {menuItems.map((menuItem) => (
-          <Link
-            className={classNames({
-              "text-zinc-200": menuItem.href !== currentPath,
-              "text-white": menuItem.href === currentPath,
-              "hover:text-white transition-colors": true,
-            })}
-            href={menuItem.href}
-          >
-            {menuItem.label}
-          </Link>
-        ))}
+    <nav className="bg-green-600">
+      <Flex justify="between">
+        <Flex gap="2">
+          <Logo />
+          <NavLinks />
+        </Flex>
+        <AuthStatus />
       </Flex>
     </nav>
+  );
+};
+
+const NavLinks = () => {
+  const menuItems = [
+    { href: "/", label: "Dashboard" },
+    { href: "/projects", label: "Projects" },
+  ];
+
+  const currentPath = usePathname();
+
+  return (
+    <Flex>
+      {menuItems.map((menuItem) => (
+        <Link
+          key={menuItem.href}
+          className={classNames({
+            "nav-link": true,
+            "bg-green-500": menuItem.href === currentPath,
+          })}
+          href={menuItem.href}
+        >
+          {menuItem.label}
+        </Link>
+      ))}
+    </Flex>
+  );
+};
+
+const AuthStatus = () => {
+  return (
+    <Link className="nav-link" href="/api/auth/signin">
+      Sign in
+    </Link>
   );
 };
 
