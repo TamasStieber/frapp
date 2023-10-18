@@ -32,13 +32,12 @@ model Issue {
   description String      @db.Text
   status      IssueStatus @default(OPEN)
   type        IssueType
-  priority    Priority    @default(MEDIUM)
+  priority    Priority
   comment     String?     @db.Text
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   deadline    DateTime?
   projectId   Int
-  typeId      Int?
 }
 
 model Tag {
