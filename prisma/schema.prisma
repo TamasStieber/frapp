@@ -15,7 +15,7 @@ model Project {
   title       String        @unique @db.VarChar(255)
   description String        @db.Text
   status      ProjectStatus @default(NOT_STARTED)
-  stage       Stage         @default(PLANNING)
+  stage       Stage         @default(NOT_STARTED)
   tags        Tag[]
   comment     String?       @db.Text
   url         String?
@@ -31,7 +31,7 @@ model Issue {
   title       String      @db.VarChar(255)
   description String      @db.Text
   status      IssueStatus @default(OPEN)
-  type        Type?       @relation(fields: [typeId], references: [id])
+  type        IssueType
   priority    Priority    @default(MEDIUM)
   comment     String?     @db.Text
   createdAt   DateTime    @default(now())
@@ -41,22 +41,15 @@ model Issue {
   typeId      Int?
 }
 
-model Type {
-  id    Int     @id @default(autoincrement())
-  label String  @db.VarChar(255)
-  color String
-  Issue Issue[]
-}
-
 model Tag {
-  id        Int      @id @default(autoincrement())
-  label     String   @db.VarChar(255)
-  color     String
-  Project   Project? @relation(fields: [projectId], references: [id])
-  projectId Int?
+  id       Int        @id @default(autoincrement())
+  label    String     @db.VarChar(255)
+  color    RadixColor
+  projects Project[]
 }
 
 enum Stage {
+  NOT_STARTED
   PLANNING
   DESIGNING
   IN_DEVELOPMENT
@@ -87,4 +80,40 @@ enum Priority {
   MEDIUM
   HIGH
   EXCLUSIVE
+}
+
+enum IssueType {
+  BUG
+  IMPROVEMENT
+  NEW_FEATURE
+  TASK
+}
+
+enum RadixColor {
+  tomato
+  red
+  ruby
+  crimson
+  pink
+  plum
+  purple
+  violet
+  iris
+  indigo
+  blue
+  cyan
+  teal
+  jade
+  green
+  grass
+  brown
+  orange
+  sky
+  mint
+  lime
+  yellow
+  amber
+  gold
+  bronze
+  gray
 }
