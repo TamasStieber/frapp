@@ -14,11 +14,13 @@ model Project {
   id          Int           @id @default(autoincrement())
   title       String        @unique @db.VarChar(255)
   description String        @db.Text
+  url_title   String        @unique
   status      ProjectStatus @default(NOT_STARTED)
   stage       Stage         @default(NOT_STARTED)
   tags        Tag[]
   comment     String?       @db.Text
   url         String?
+  git         String?
   issues      Issue[]
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt

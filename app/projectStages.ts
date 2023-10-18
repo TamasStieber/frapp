@@ -20,7 +20,7 @@ const projectStages: { [key: string]: ProjectStage } = {
   },
   IN_DEVELOPMENT: {
     label: "In Development",
-    color: "ruby",
+    color: "violet",
   },
   OPTIMIZATION: {
     label: "Optimization",
@@ -40,7 +40,7 @@ const projectStages: { [key: string]: ProjectStage } = {
   },
   IN_PRODUCTION: {
     label: "In Production",
-    color: "grass",
+    color: "green",
   },
 };
 

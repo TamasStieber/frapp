@@ -12,7 +12,7 @@ const validatePriority = (value: any) => {
 };
 
 const issueSchema = z.object({
-  projectId: z.number().nonnegative(),
+  projectId: z.number().min(1),
   title: z.string().min(1).max(255),
   description: z.string().min(1).max(65535),
   type: z.custom<IssueType>(validateIssueType),
