@@ -1,35 +1,15 @@
+import { RadixColor } from "@prisma/client";
+
 type ProjectStage = {
   label: string;
-  color:
-    | "tomato"
-    | "red"
-    | "ruby"
-    | "crimson"
-    | "pink"
-    | "plum"
-    | "purple"
-    | "violet"
-    | "iris"
-    | "indigo"
-    | "blue"
-    | "cyan"
-    | "teal"
-    | "jade"
-    | "green"
-    | "grass"
-    | "brown"
-    | "orange"
-    | "sky"
-    | "mint"
-    | "lime"
-    | "yellow"
-    | "amber"
-    | "gold"
-    | "bronze"
-    | "gray";
+  color: RadixColor;
 };
 
 const projectStages: { [key: string]: ProjectStage } = {
+  NOT_STARTED: {
+    label: "Not Started",
+    color: "gray",
+  },
   PLANNING: {
     label: "Planning",
     color: "amber",
