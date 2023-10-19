@@ -1,15 +1,15 @@
-import { Button, Flex } from "@radix-ui/themes";
-import { AiOutlineEdit, AiOutlineCloseCircle } from "react-icons/ai";
+import { Project } from '@prisma/client';
+import { Button, Flex } from '@radix-ui/themes';
+import { AiOutlineEdit, AiOutlineCloseCircle } from 'react-icons/ai';
+import DeleteProject from './DeleteProject';
 
-const ProjectActions = () => {
+const ProjectActions = ({ project }: { project: Project }) => {
   return (
-    <Flex gap="2">
-      <Button size="1" color="cyan">
+    <Flex gap='2'>
+      <Button size='1' color='cyan'>
         <AiOutlineEdit /> Edit Project
       </Button>
-      <Button size="1" color="red">
-        <AiOutlineCloseCircle /> Delete Project
-      </Button>
+      <DeleteProject project={project} />
     </Flex>
   );
 };

@@ -1,10 +1,10 @@
-import ProjectStageBadge from "@/app/components/ProjectStageBadge";
-import ProjectStatusBadge from "@/app/components/ProjectStatusBadge";
-import { Project } from "@prisma/client";
-import { Heading, Flex, Text, Grid } from "@radix-ui/themes";
-import Link from "next/link";
-import { PropsWithChildren } from "react";
-import ProjectActions from "./ProjectActions";
+import ProjectStageBadge from '@/app/components/ProjectStageBadge';
+import ProjectStatusBadge from '@/app/components/ProjectStatusBadge';
+import { Project } from '@prisma/client';
+import { Heading, Flex, Text, Grid } from '@radix-ui/themes';
+import Link from 'next/link';
+import { PropsWithChildren } from 'react';
+import ProjectActions from './ProjectActions';
 
 const ProjectDetails = ({ project }: { project: Project }) => {
   const formatDate = (date: Date) => {
@@ -16,20 +16,20 @@ const ProjectDetails = ({ project }: { project: Project }) => {
   };
 
   const formatDateTime = (date: Date) => {
-    return formatDate(date) + " " + formatTime(date);
+    return formatDate(date) + ' ' + formatTime(date);
   };
 
   return (
-    <Flex direction="column">
-      <Flex justify="between" mb="3">
+    <Flex direction='column'>
+      <Flex justify='between' mb='3'>
         <Heading>{project.title}</Heading>
-        <ProjectActions />
+        <ProjectActions project={project} />
       </Flex>
-      <Flex justify="between" mb="3">
+      <Flex justify='between' mb='3'>
         <ProjectStatusBadge status={project.status} />
         <ProjectStageBadge stage={project.stage} />
       </Flex>
-      <Flex direction="column" gap="1" mb="5">
+      <Flex direction='column' gap='1' mb='5'>
         <ProjectDetailsGrid>
           <ProjectDetailsText>Created at:</ProjectDetailsText>
           <ProjectDetailsText>
@@ -55,8 +55,8 @@ const ProjectDetails = ({ project }: { project: Project }) => {
           {project.url && (
             <ProjectDetailsText>
               <Link
-                target="_blank"
-                className="text-green-600 hover:underline"
+                target='_blank'
+                className='text-green-600 hover:underline'
                 href={project.url}
               >
                 {project.url}
@@ -69,8 +69,8 @@ const ProjectDetails = ({ project }: { project: Project }) => {
           {project.git && (
             <ProjectDetailsText>
               <Link
-                target="_blank"
-                className="text-green-600 hover:underline"
+                target='_blank'
+                className='text-green-600 hover:underline'
                 href={project.git}
               >
                 {project.git}
@@ -79,11 +79,11 @@ const ProjectDetails = ({ project }: { project: Project }) => {
           )}
         </ProjectDetailsGrid>
       </Flex>
-      <Flex direction="column" mb="5">
+      <Flex direction='column' mb='5'>
         <ProjectDetailsText>Description:</ProjectDetailsText>
         <ProjectDetailsText>{project.description}</ProjectDetailsText>
       </Flex>
-      <Flex direction="column">
+      <Flex direction='column'>
         <ProjectDetailsText>Comment:</ProjectDetailsText>
         {project.comment && (
           <ProjectDetailsText>{project.comment}</ProjectDetailsText>
@@ -94,11 +94,11 @@ const ProjectDetails = ({ project }: { project: Project }) => {
 };
 
 const ProjectDetailsText = ({ children }: PropsWithChildren) => {
-  return <Text size="2">{children}</Text>;
+  return <Text size='2'>{children}</Text>;
 };
 
 const ProjectDetailsGrid = ({ children }: PropsWithChildren) => {
-  return <Grid columns="1fr 3fr">{children}</Grid>;
+  return <Grid columns='1fr 3fr'>{children}</Grid>;
 };
 
 export default ProjectDetails;
