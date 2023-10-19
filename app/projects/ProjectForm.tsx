@@ -14,7 +14,7 @@ import FormErrorMessage from '../components/FormErrorMessage';
 
 type ProjectForm = z.infer<typeof projectSchema>;
 
-const ProjectForm = ({ handleClose }: { handleClose: () => void }) => {
+const ProjectForm = () => {
   const {
     register,
     control,
@@ -36,7 +36,6 @@ const ProjectForm = ({ handleClose }: { handleClose: () => void }) => {
       });
       if (response.status !== 201) throw new Error();
       const project: Project = await response.json();
-      handleClose();
       router.push(`/projects/${project.url_title}`);
     } catch (error) {
       setSubmitting(false);
