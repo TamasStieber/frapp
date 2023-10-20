@@ -1,8 +1,13 @@
 import React from 'react';
-import CreateProject from './CreateProject';
+import ProjectDialog from './ProjectDialog';
+import { Button } from '@radix-ui/themes';
 
 const ProjectsPage = () => {
-  return <CreateProject />;
+  return (
+    <ProjectDialog>
+      <Button>New Project</Button>
+    </ProjectDialog>
+  );
 };
 
 export default ProjectsPage;
