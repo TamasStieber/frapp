@@ -5,9 +5,12 @@ import ProjectStageBadge from '../components/ProjectStageBadge';
 import ProjectStatusBadge from '../components/ProjectStatusBadge';
 import { formatDateTime } from '../utilities';
 import ProjectDialog from './ProjectDialog';
+import { IssueStatus } from '@prisma/client';
 
 const ProjectsPage = async () => {
-  const projects = await prisma.project.findMany();
+  const projects = await prisma.project.findMany({
+    include: { issues: { where: { status: { not: IssueStatus.DONE } } } },
+  });
   return (
     <>
       <ProjectDialog>
@@ -19,6 +22,7 @@ const ProjectsPage = async () => {
             <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Stage</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Open Issues</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Deadline</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Created At</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>Updated At</Table.ColumnHeaderCell>
@@ -26,7 +30,7 @@ const ProjectsPage = async () => {
         </Table.Header>
         <Table.Body>
           {projects.map((project) => (
-            <Table.Row key={project.id}>
+            <Table.Row key={project.id} className='hover:bg-gray-50'>
               <Table.Cell>
                 <Link href={`/projects/${project.url_title}`}>
                   {project.title}
@@ -38,6 +42,7 @@ const ProjectsPage = async () => {
               <Table.Cell>
                 <ProjectStageBadge stage={project.stage} />
               </Table.Cell>
+              <Table.Cell>{project.issues.length}</Table.Cell>
               <Table.Cell>{formatDateTime(project.deadline)}</Table.Cell>
               <Table.Cell>{formatDateTime(project.createdAt)}</Table.Cell>
               <Table.Cell>{formatDateTime(project.updatedAt)}</Table.Cell>
