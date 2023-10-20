@@ -5,20 +5,9 @@ import { Heading, Flex, Text, Grid } from '@radix-ui/themes';
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 import ProjectActions from './ProjectActions';
+import { formatDateTime } from '@/app/utilities';
 
 const ProjectDetails = ({ project }: { project: Project }) => {
-  const formatDate = (date: Date) => {
-    return date.toDateString();
-  };
-
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString();
-  };
-
-  const formatDateTime = (date: Date) => {
-    return formatDate(date) + ' ' + formatTime(date);
-  };
-
   return (
     <Flex direction='column'>
       <Flex justify='between' mb='3'>
