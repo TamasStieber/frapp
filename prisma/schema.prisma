@@ -29,7 +29,7 @@ model Project {
 
 model Issue {
   id          Int         @id @default(autoincrement())
-  project     Project     @relation(fields: [projectId], references: [id])
+  project     Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
   title       String      @db.VarChar(255)
   description String      @db.Text
   status      IssueStatus @default(OPEN)
