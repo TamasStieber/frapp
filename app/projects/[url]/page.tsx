@@ -1,8 +1,9 @@
-import prisma from "@/prisma/client";
-import { Grid } from "@radix-ui/themes";
-import { notFound } from "next/navigation";
-import ProjectDetails from "./ProjectDetails";
-import ProjectIssues from "./ProjectIssues";
+import prisma from '@/prisma/client';
+import { Button, Flex, Grid, Heading } from '@radix-ui/themes';
+import { notFound } from 'next/navigation';
+import ProjectDetails from './ProjectDetails';
+import ProjectIssues from './ProjectIssues';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 const ProjectPage = async ({ params }: { params: { url: string } }) => {
   const project = await prisma.project.findUnique({
@@ -13,9 +14,18 @@ const ProjectPage = async ({ params }: { params: { url: string } }) => {
   if (!project) notFound();
 
   return (
-    <Grid columns="1fr 2fr" gap="6" align="start">
+    <Grid columns='1fr 2fr' gap='6' align='start'>
       <ProjectDetails project={project} />
-      <ProjectIssues issues={project.issues} />
+      <Flex direction='column'>
+        <Flex justify='between' mb='3'>
+          <Heading>Issues</Heading>
+          <Button size='1' color='green'>
+            {' '}
+            <AiOutlinePlusCircle /> New Issue
+          </Button>
+        </Flex>
+        <ProjectIssues issues={project.issues} />
+      </Flex>
     </Grid>
   );
 };
