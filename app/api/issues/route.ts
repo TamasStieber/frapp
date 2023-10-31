@@ -1,24 +1,25 @@
-import prisma from "@/prisma/client";
-import { IssueType, Priority } from "@prisma/client";
-import { NextRequest, NextResponse } from "next/server";
-import z from "zod";
+import { issueSchema } from '@/app/issueSchema';
+import prisma from '@/prisma/client';
+import { IssueType, Priority } from '@prisma/client';
+import { NextRequest, NextResponse } from 'next/server';
+import z from 'zod';
 
-const validateIssueType = (value: any) => {
-  return Object.hasOwn(IssueType, value);
-};
+// const validateIssueType = (value: any) => {
+//   return Object.hasOwn(IssueType, value);
+// };
 
-const validatePriority = (value: any) => {
-  return Object.hasOwn(Priority, value);
-};
+// const validatePriority = (value: any) => {
+//   return Object.hasOwn(Priority, value);
+// };
 
-const issueSchema = z.object({
-  projectId: z.number().min(1),
-  title: z.string().min(1).max(255),
-  description: z.string().min(1).max(65535),
-  type: z.custom<IssueType>(validateIssueType),
-  priority: z.custom<Priority>(validatePriority),
-  deadline: z.string().datetime({ offset: true }).optional().nullable(),
-});
+// const issueSchema = z.object({
+//   projectId: z.number().min(1),
+//   title: z.string().min(1).max(255),
+//   description: z.string().min(1).max(65535),
+//   type: z.custom<IssueType>(validateIssueType),
+//   priority: z.custom<Priority>(validatePriority),
+//   deadline: z.string().datetime({ offset: true }).optional().nullable(),
+// });
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -29,7 +30,7 @@ export async function POST(request: NextRequest) {
 
   if (!project)
     return NextResponse.json(
-      { error: "Project does not exist!" },
+      { error: 'Project does not exist!' },
       { status: 400 }
     );
 

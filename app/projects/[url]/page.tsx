@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import ProjectDetails from './ProjectDetails';
 import ProjectIssues from './ProjectIssues';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
+import IssueDialog from '../IssueDialog';
 
 const ProjectPage = async ({ params }: { params: { url: string } }) => {
   const project = await prisma.project.findUnique({
@@ -19,10 +20,12 @@ const ProjectPage = async ({ params }: { params: { url: string } }) => {
       <Flex direction='column'>
         <Flex justify='between' mb='3'>
           <Heading>Issues</Heading>
-          <Button size='1' color='green'>
-            {' '}
-            <AiOutlinePlusCircle /> New Issue
-          </Button>
+          <IssueDialog projectId={project.id}>
+            <Button size='1' color='green'>
+              {' '}
+              <AiOutlinePlusCircle /> New Issue
+            </Button>
+          </IssueDialog>
         </Flex>
         <ProjectIssues issues={project.issues} />
       </Flex>
